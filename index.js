@@ -1,15 +1,18 @@
 const express = require('express');
-const { resolve } = require('path');
-
+const connectDB = require('./config/db');
+const cores =require('cors');
+const taskRoutes = require('./routes/taskRoutes');
 const app = express();
-const port = 3010;
 
-app.use(express.static('static'));
+app.use(express.json());
+app.use(cores());
+connectDB();
 
-app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
-});
+app.use('/api/task', taskRoutes);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+
+
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+}); 
