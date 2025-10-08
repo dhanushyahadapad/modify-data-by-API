@@ -5,8 +5,8 @@ const addTasks = async (req, res) => {
         const task = new Task(req.body);
         const newTask = await task.save();
         res.status(201).json(newTask);
-    } catch (err) {
-        res.status(500).json({ message: err.message })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -14,7 +14,7 @@ const getTasks = async (req, res) => {
     try {
         const a = await Task.find();
         res.status(200).json(a);
-    } catch (err) {
+    } catch (error) {
         res.status(500).json("error")
     
     }
@@ -23,7 +23,7 @@ const updateTasks = async (req, res) => {
     try {
         const updatedTasks = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json(updatedTasks);
-    } catch (err) {
+    } catch (error) {
         res.status(500).json("error");
     }
 }
@@ -31,7 +31,7 @@ const deleteTasks = async(req,res)=>{
     try{
         await Task.findByIdAndDelete(req.params.id);
         res.status(200).json("Deleted Successfully");
-    }catch(err){
+    }catch(error){
         res.status(500).json("error");
     }   
 }
